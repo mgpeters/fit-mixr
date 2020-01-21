@@ -17,7 +17,6 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   name: String,
-  dob: Date,
   priorWorkoutClass: String,
   priorWorkoutDuration: Number,
   workouts: [{

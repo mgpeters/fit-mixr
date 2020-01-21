@@ -5,8 +5,9 @@ const fitMixrController = require('../controllers/fitMixrController');
 
 const router = express.Router();
 
-router.post('/test', fitMixrController.testPost, (req, res) => res.status(200).json({}),
-);
+router.post('/test', fitMixrController.testPost, (req, res) => res.status(200).json({}));
+
+router.post('/addUser', fitMixrController.addUser, (req, res) => res.status(200).json({}));
 
 // router.get('/',
 //   starWarsController.getCharacters,
