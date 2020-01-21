@@ -1,9 +1,17 @@
 const express = require('express');
-
 const app = express();
 const path = require('path');
 
-// uncomment the below for proxy challenge
+const bodyParser = require('body-parser');
+
+const PORT = 3000;
+
+/**
+ * handle parsing request body
+ */
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 // statically serve everything in the build folder on the route '/build'
 if (process.env.NODE_ENV !== 'development') {
@@ -14,4 +22,6 @@ if (process.env.NODE_ENV !== 'development') {
   });
 }
 
-app.listen(3000); // listens on port 3000 -> http://localhost:3000/
+app.listen(PORT, () => {
+  console.log(`Server listening on port: ${PORT}`);
+}); // listens on port 3000 -> http://localhost:3000/
