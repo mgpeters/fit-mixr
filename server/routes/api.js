@@ -5,9 +5,7 @@ const fitMixrController = require('../controllers/fitMixrController');
 
 const router = express.Router();
 
-router.get('/',
-  fitMixrController.findData,
-  (req, res) => res.status(200).json([...res.locals])
+router.post('/test', fitMixrController.testPost, (req, res) => res.status(200).json({}),
 );
 
 // router.get('/',
