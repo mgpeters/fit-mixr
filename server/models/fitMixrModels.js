@@ -15,12 +15,34 @@ mongoose.connect(MONGO_URI, {
 
 const Schema = mongoose.Schema;
 
-const workoutSchema = new Schema({
-  date: Date,
-  workoutLength: Number,
-  test: String,
+const userSchema = new Schema({
+  name: String,
+  dob: Date,
+  priorWorkoutClass: String,
+  priorWorkoutDuration: Number,
+  workouts: [{
+    // type of ObjectId makes this behave like a foreign key referencing the 'planet' collection
+    id: {
+      type: Schema.Types.ObjectId,
+      ref: 'workouts',
+    },
+  }], // may need to update to OBJ later. Trying to Push workout obj to array
 });
 
-const WorkoutData = mongoose.model('workoutData', workoutSchema);
+const UserData = mongoose.model('user', userSchema);
 
-module.exports = { WorkoutData };
+const workoutSchema = new Schema({
+  date: { type: Date, default: Date.now },
+  workoutClass: String,
+  completed: Boolean,
+  perceivedDifficulty: {
+    type: Number,
+    min: 0,
+    max: 10,
+  },
+  exercises: Array, //may need to change, want an Array of Objects
+});
+
+const Workouts = mongoose.model('workouts', workoutSchema);
+
+module.exports = { UserData, Workouts };
