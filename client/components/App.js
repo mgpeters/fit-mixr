@@ -36,15 +36,26 @@ class App extends Component {
     const workoutType = this.state.workoutTypeId;
     workoutType.push(event.target.id);
 
-    this.setState({ workoutTypeId: workoutType });
+    console.log(event.target)
+
+    const selection = document.getElementById(event.target.id);
+
+    selection.style.border = '5px solid red';
+
+    this.setState({
+      workoutTypeId: workoutType,
+      mixButtonStatus: false
+    });
+  }
+
+  toggleSelectionColor() {
+
   }
 
   // componentDidMount() {
   //   setModalShow(true);
 
   render() {
-
-    // const [modalShow, setModalShow] = React.useState(false);
 
     return (
       <div>
