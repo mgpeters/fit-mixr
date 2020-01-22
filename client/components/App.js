@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+
 import MainView from './MainView';
-import OpenModel from './OpenModel';
+import OpenModal from './OpenModal';
+import Button from 'react-bootstrap/Button';
 
-// import 'bootstrap/dist/css/bootstrap.min.css';
+//import 'bootstrap/dist/css/bootstrap.min.css';
 
-const fetchTest = fetch('https://wger.de/api/v2/exercise/?limit=100&status=2&language=2&category=13').then((results) => results.json()).then((result) => console.log(result)).catch((err) => console.log(err.message));
+// const fetchTest = fetch('https://wger.de/api/v2/exercise/?limit=100&status=2&language=2&category=13').then((results) => results.json()).then((result) => console.log(result)).catch((err) => console.log(err.message));
 
 const shuffleArray = (array) => {  // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array 1/22/2020
     for (let i = array.length - 1; i > 0; i--) {
@@ -16,33 +18,37 @@ const shuffleArray = (array) => {  // https://stackoverflow.com/questions/245095
 class App extends Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
-    this.state = getInitialState();
+    this.state = {
+      modalShow: true
+    }
+    // this.handleClick = this.handleClick.bind(this);
+    // this.state = getInitialState();
   }
 
-  handleClick(row, square) {
-    let { turn, winner } = this.state;
-    const { rows } = this.state;
-    const squareInQuestion = rows[row][square];
-
-    if (this.state.winner) return;
-    if (squareInQuestion) return;
-
-    rows[row][square] = turn;
-    turn = turn === 'X' ? 'O' : 'X';
-    winner = checkWin(rows);
-
-    this.setState({
-      rows,
-      turn,
-      winner,
-    });
+  setModelShow() {
+    if (this.state.modalShow) setState({modalShow: true});
+    else setState({modalShow: false })
   }
+
+  // componentDidMount() {
+  //   setModalShow(true);
+  // }
+
+    // <Button variant="primary" onClick={() => this.setModelShow }>
+    //       Launch vertically centered modal
+    //     </Button>
 
   render() {
+
+    // const [modalShow, setModalShow] = React.useState(false);
+
     return (
       <div>
-        <MainView />
+        <OpenModal
+          show={true //this.state.modalShow
+          }
+          onHide={() => setModalShow(false)}
+        />
       </div>
     );
   }

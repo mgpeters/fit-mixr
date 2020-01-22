@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 /**
+ * * 
  * handle requests for static files -- make sure you know what this is doing
 app.use('/assets', express.static(path.resolve(__dirname, '../client/assets')));
 */
