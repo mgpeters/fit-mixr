@@ -60,7 +60,7 @@ function OpenModal(props) {
         <Button
           block
           disabled={ props.mixButtonStatus }
-          onClick={ props.onHide }>
+          onClick={ props.mixItFunction }>
           Mix-It!
         </Button>
       </Modal.Footer>

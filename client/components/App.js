@@ -22,10 +22,11 @@ class App extends Component {
       modalShow: true,
       workoutTypeId: [],
       mixButtonStatus: true,
+      generatedWorkout: null,
     }
-    //setModalShow = this.setModelShow.bind(this);
-    // this.state = getInitialState();
+
     this.selectWorkout = this.selectWorkout.bind(this);
+    this.mixItFunction = this.mixItFunction.bind(this);
   }
 
   setModalShow(param) {
@@ -40,7 +41,7 @@ class App extends Component {
 
     const selection = document.getElementById(event.target.id);
 
-    selection.style.border = '5px solid red';
+    selection.style.border = '3px solid grey';
 
     this.setState({
       workoutTypeId: workoutType,
@@ -48,8 +49,28 @@ class App extends Component {
     });
   }
 
-  toggleSelectionColor() {
+  mixItFunction() {
+    const promiseArray = [];
 
+    this.state.workoutTypeId.forEach((id) => {
+      promiseArray.push(fetch(`https://wger.de/api/v2/exercise/?limit=100&status=2&language=2&category=${id}`)
+        .then((results) => results.json())
+        .then((result) => result.results)
+        .catch((err) => console.log(err.message)))
+    });
+
+    console.log('promiseArray', promiseArray)
+
+    Promise.all(promiseArray)
+      .then((result) => {
+        console.log('result', result)
+        // this.setState({
+        // modalShow: false,
+        // })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   // componentDidMount() {
@@ -64,6 +85,7 @@ class App extends Component {
           onHide={() => this.setModalShow(false)}
           mixButtonStatus={ this.state.mixButtonStatus }
           selectWorkout={ this.selectWorkout }
+          mixItFunction={ this.mixItFunction }
         />
       </div>
     );
