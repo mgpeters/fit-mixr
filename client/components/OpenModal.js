@@ -9,14 +9,15 @@ function OpenModal(props) {
   return (
     <Modal
       {...props}
-      show ={true}
+      show = { props.show }
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
-      centered
+      centered={ true }
+      autoFocus={ true }
     >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Modal heading
+      <Modal.Header >
+        <Modal.Title id="contained-modal-title-vcenter" >
+          <h1 id="modal-header-text">Welcome to FitMixr!</h1>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>

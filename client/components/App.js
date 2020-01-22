@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import MainView from './MainView';
 import OpenModal from './OpenModal';
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
 
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -19,24 +19,22 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalShow: true
+      modalShow: true,
+      workoutSettings: {
+        workoutLength: null,
+        workoutTypeId: [],
+      },
     }
-    // this.handleClick = this.handleClick.bind(this);
+    //setModalShow = this.setModelShow.bind(this);
     // this.state = getInitialState();
   }
 
-  setModelShow() {
-    if (this.state.modalShow) setState({modalShow: true});
-    else setState({modalShow: false })
+  setModalShow(param) {
+    this.setState({ modalShow: param });
   }
 
   // componentDidMount() {
   //   setModalShow(true);
-  // }
-
-    // <Button variant="primary" onClick={() => this.setModelShow }>
-    //       Launch vertically centered modal
-    //     </Button>
 
   render() {
 
@@ -45,9 +43,8 @@ class App extends Component {
     return (
       <div>
         <OpenModal
-          show={true //this.state.modalShow
-          }
-          onHide={() => setModalShow(false)}
+          show={ this.state.modalShow }
+          onHide={() => this.setModalShow(false)}
         />
       </div>
     );
