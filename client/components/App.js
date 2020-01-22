@@ -20,18 +20,23 @@ class App extends Component {
     super(props);
     this.state = {
       modalShow: true,
-      workoutSettings: {
-        workoutLength: null,
-        workoutTypeId: [],
-      },
+      workoutTypeId: [],
       mixButtonStatus: true,
     }
     //setModalShow = this.setModelShow.bind(this);
     // this.state = getInitialState();
+    this.selectWorkout = this.selectWorkout.bind(this);
   }
 
   setModalShow(param) {
     this.setState({ modalShow: param });
+  }
+
+  selectWorkout(event) {
+    const workoutType = this.state.workoutTypeId;
+    workoutType.push(event.target.id);
+
+    this.setState({ workoutTypeId: workoutType });
   }
 
   // componentDidMount() {
@@ -47,6 +52,7 @@ class App extends Component {
           show={ this.state.modalShow }
           onHide={() => this.setModalShow(false)}
           mixButtonStatus={ this.state.mixButtonStatus }
+          selectWorkout={ this.selectWorkout }
         />
       </div>
     );

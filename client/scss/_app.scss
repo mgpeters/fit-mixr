@@ -30,6 +30,15 @@ body {
 
       }
     }
+
+    button:hover {
+      border-color: cornflowerblue;
+      border-style: solid;
+    }
+
+    button:focus {
+      background-color:yellow; 
+    }
   }
 }
 

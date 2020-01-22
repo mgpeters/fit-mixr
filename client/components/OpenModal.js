@@ -10,6 +10,7 @@ import core from '../assets/icons/abs.png';
 import arms from '../assets/icons/arms.png';
 
 function OpenModal(props) {
+
   return (
     <Modal
       {...props}
@@ -28,28 +29,28 @@ function OpenModal(props) {
         <section className="modal-body">
           <h2 className="modal-body-text">What Are You Working Today?</h2>
           <div className="modal-body-selection">
-            <button>
-              <img src={shoulders}></img>
+            <button onClick={ props.selectWorkout }>
+              <img id='13' src={shoulders}></img>
               <p>Shoulders</p>
             </button>
-            <button>
-              <img src={legs}></img>
+            <button onClick={ props.selectWorkout }>
+              <img id='9' src={legs}></img>
               <p>Legs</p>
             </button>
-            <button>
-              <img src={chest}></img>
+            <button onClick={ props.selectWorkout } >
+              <img id='11' src={chest}></img>
               <p>Chest</p>
             </button>
-            <button>
-              <img src={back}></img>
+            <button onClick={ props.selectWorkout } >
+              <img id='12' src={back}></img>
               <p>Back</p>
             </button>
-            <button>
-              <img src={core}></img>
+            <button onClick={ props.selectWorkout } >
+              <img id='10' src={core}></img>
               <p>Core</p>
             </button>
-            <button>
-              <img src={arms}></img>
+            <button onClick={ props.selectWorkout }>
+              <img  id='8' src={arms}></img>
               <p>Arms</p>
             </button>
           </div>
