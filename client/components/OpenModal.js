@@ -15,7 +15,7 @@ function OpenModal(props) {
     <Modal
       {...props}
       show = { props.show }
-      size="lg"
+      size="md"
       aria-labelledby="contained-modal-title-vcenter"
       centered={ true }
       autoFocus={ true }

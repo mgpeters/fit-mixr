@@ -2,22 +2,21 @@ import React, { Component } from 'react';
 
 import MainView from './MainView';
 import OpenModal from './OpenModal';
-// import Button from 'react-bootstrap/Button';
 
-//import 'bootstrap/dist/css/bootstrap.min.css';
 
-// const fetchTest = fetch('https://wger.de/api/v2/exercise/?limit=100&status=2&language=2&category=13').then((results) => results.json()).then((result) => console.log(result)).catch((err) => console.log(err.message));
-
-const shuffleArray = (array) => {  // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array 1/22/2020
-    console.log('prior to shuffle', array);
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+const getRandom = (arr, n) => {
+    var result = new Array(n),
+        len = arr.length,
+        taken = new Array(len);
+    if (n > len)
+        throw new RangeError("getRandom: more elements taken than available");
+    while (n--) {
+        var x = Math.floor(Math.random() * len);
+        result[n] = arr[x in taken ? taken[x] : x];
+        taken[x] = --len in taken ? taken[len] : len;
     }
-  console.log('after shuffle', array);
-  return array;
+    return result;
 }
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +24,8 @@ class App extends Component {
       modalShow: true,
       workoutTypeId: [],
       mixButtonStatus: true,
-      generatedWorkout: null,
+      generatedWorkout: [],
+      completedWorkout: null,
     }
 
     this.selectWorkout = this.selectWorkout.bind(this);
@@ -66,8 +66,10 @@ class App extends Component {
       .then((result) => {
         const concatResults = result.reduce((acc, val) => [...acc, ...val]);
 
+        const randomWorkouts = getRandom(concatResults, Math.floor(concatResults.length / 2))
+
         this.setState({
-          generatedWorkout: concatResults,
+          generatedWorkout: randomWorkouts,
           modalShow: false,
         })
       }).catch((error) => {
@@ -89,6 +91,11 @@ class App extends Component {
           selectWorkout={ this.selectWorkout }
           mixItFunction={ this.mixItFunction }
         />
+        {
+          this.state.modalShow ? '' :
+          <MainView
+            generatedWorkout={ this.state.generatedWorkout } />
+        }
       </div>
     );
   }

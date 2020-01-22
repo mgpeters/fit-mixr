@@ -10,7 +10,7 @@ class PriorWorkouts extends Component {
   render() {
     return (
       <div>
-
+        <h3>Prior Workouts</h3>
       </div>
     );
   }
