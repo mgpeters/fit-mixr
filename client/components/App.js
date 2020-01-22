@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import MainView from './MainView';
+import OpenModel from './OpenModel';
 
 const fetchTest = fetch('https://wger.de/api/v2/exercise/?limit=100&status=2&language=2&category=13').then((results) => results.json()).then((result) => console.log(result)).catch((err) => console.log(err.message));
 
@@ -38,7 +40,7 @@ class App extends Component {
   render() {
     return (
       <div>
-
+        <MainView />
       </div>
     );
   }
