@@ -28,30 +28,30 @@ function OpenModal(props) {
         <section className="modal-body">
           <h2 className="modal-body-text">What Are You Working Today?</h2>
           <div className="modal-body-selection">
-            <div>
+            <button>
               <img src={shoulders}></img>
               <p>Shoulders</p>
-            </div>
-            <div>
+            </button>
+            <button>
               <img src={legs}></img>
               <p>Legs</p>
-            </div>
-            <div>
+            </button>
+            <button>
               <img src={chest}></img>
               <p>Chest</p>
-            </div>
-            <div>
+            </button>
+            <button>
               <img src={back}></img>
               <p>Back</p>
-            </div>
-            <div>
+            </button>
+            <button>
               <img src={core}></img>
               <p>Core</p>
-            </div>
-            <div>
+            </button>
+            <button>
               <img src={arms}></img>
               <p>Arms</p>
-            </div>
+            </button>
           </div>
         </section>
       </Modal.Body>
