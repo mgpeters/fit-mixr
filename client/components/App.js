@@ -5,7 +5,7 @@ import Leaders from './Leaders';
 
 const gameStore = [];
 
-const fetchTest = fetch('/api/leaders').then((results) => results.json()).then((result) => console.log(result)).catch((err) => console.log(err.message));
+const fetchTest = fetch('https://wger.de/api/v2/exercise/?limit=100&status=2&language=2&category=13').then((results) => results.json()).then((result) => console.log(result)).catch((err) => console.log(err.message));
 
 function getInitialState() {
   return {
