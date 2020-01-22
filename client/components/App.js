@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import MainView from './MainView';
 import OpenModel from './OpenModel';
 
+// import 'bootstrap/dist/css/bootstrap.min.css';
+
 const fetchTest = fetch('https://wger.de/api/v2/exercise/?limit=100&status=2&language=2&category=13').then((results) => results.json()).then((result) => console.log(result)).catch((err) => console.log(err.message));
 
 const shuffleArray = (array) => {  // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array 1/22/2020
