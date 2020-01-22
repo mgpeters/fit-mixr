@@ -1,9 +1,8 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
-import ModalHeader from 'react-bootstrap/ModalHeader';
-import ModalBody from 'react-bootstrap/ModalBody';
-import ModalFooter from 'react-bootstrap/ModalFooter'
 import Button from 'react-bootstrap/Button';
+
+import shoulders from '../assets/icons/shoulders.png';
 
 function OpenModal(props) {
   return (
@@ -21,15 +20,20 @@ function OpenModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>Centered Modal</h4>
-        <p>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-          consectetur ac, vestibulum at eros.
-        </p>
+        <section className="modal-body">
+          <h2 className="modal-body-text">What Are You Working Today?</h2>
+          <div>
+            <img src={shoulders}></img>
+          </div>
+        </section>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+        <Button
+          block
+          disabled={ props.mixButtonStatus }
+          onClick={ props.onHide }>
+          Mix-It!
+        </Button>
       </Modal.Footer>
     </Modal>
   );

@@ -24,6 +24,7 @@ class App extends Component {
         workoutLength: null,
         workoutTypeId: [],
       },
+      mixButtonStatus: true,
     }
     //setModalShow = this.setModelShow.bind(this);
     // this.state = getInitialState();
@@ -45,6 +46,7 @@ class App extends Component {
         <OpenModal
           show={ this.state.modalShow }
           onHide={() => this.setModalShow(false)}
+          mixButtonStatus={ this.state.mixButtonStatus }
         />
       </div>
     );

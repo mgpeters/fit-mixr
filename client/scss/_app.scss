@@ -2,6 +2,10 @@ body {
   background: $lightBlue;
 }
 
+.modal-body-text {
+  font-size: 1.3em;
+}
+
 #board {
   width: 390px;
   height: 390px;
@@ -10,3 +14,4 @@ body {
   margin: 20px auto;
   padding: 0;
 }
+
