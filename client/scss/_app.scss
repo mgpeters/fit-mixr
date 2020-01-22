@@ -2,8 +2,33 @@ body {
   background: $lightBlue;
 }
 
-.modal-body-text {
-  font-size: 1.3em;
+.modal-body {
+
+  text-align: center;
+
+  .modal-body-text {
+    font-size: 1.3em;
+  }
+
+  .modal-body-selection {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10px;
+    justify-content: center;
+
+    div {
+      margin: 15px;
+
+      img {
+
+      }
+
+      p {
+
+      }
+    }
+  }
 }
 
 #board {
