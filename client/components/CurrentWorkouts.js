@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import CurrentWorkout from './CurrentWorkout';
 
+import Button from 'react-bootstrap/Button';
+
 class CurrentWorkouts extends Component {
   constructor(props) {
     super(props);
@@ -10,10 +12,7 @@ class CurrentWorkouts extends Component {
   render() {
     const workoutGenArray = [];
 
-    console.log(this.props.generatedWorkout)
-
     for (let i = 0; i < this.props.numOfSets; i += 1) {
-      console.log('name', this.props.generatedWorkout[i].name)
       if (this.props.generatedWorkout[i].name !== undefined) {
         workoutGenArray.push(
           <CurrentWorkout
@@ -30,6 +29,12 @@ class CurrentWorkouts extends Component {
       <div>
         <h3>Current Workout</h3>
         { workoutGenArray }
+        <Button
+          block
+          onClick={ this.props.triggerMongoPost }
+          type="submit">
+          Workout Completed
+        </Button>
       </div>
     );
   }

@@ -28,7 +28,6 @@ const CurrentWorkout = (props) => {
         // obj[currDate] = values;
         props.setCompleted(values);
         setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
         }, 400);
       }}

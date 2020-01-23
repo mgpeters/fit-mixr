@@ -33,6 +33,7 @@ class App extends Component {
     this.selectWorkout = this.selectWorkout.bind(this);
     this.mixItFunction = this.mixItFunction.bind(this);
     this.setCompleted = this.setCompleted.bind(this);
+    this.triggerMongoPost = this.triggerMongoPost.bind(this);
   }
 
   setModalShow(param) {
@@ -101,6 +102,23 @@ class App extends Component {
     })
 }
 
+  postWorkout(currentState) {
+    fetch('/api/addWorkout', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "Application/JSON"
+        },
+        body: JSON.stringify(currentState),
+      }).then(res => res.json())
+      .then((response) => {
+        console.log('postWorkoutResponse COMPLETE', response);
+      }).catch(err => console.log('Characters.componentDidMount: get characters: ERROR: ', err));
+  }
+
+  triggerMongoPost(){
+    this.postWorkout(this.state.completedWorkout);
+  }
+
   // componentDidMount() {
   //   setModalShow(true);
 
@@ -120,8 +138,9 @@ class App extends Component {
           <MainView
             generatedWorkout={ this.state.generatedWorkout }
             workoutCompleted={ this.workoutCompleted }
-            numOfSets={ this.state.numOfSets } 
-            setCompleted={ this.setCompleted } />
+            numOfSets={ this.state.numOfSets }
+            setCompleted={ this.setCompleted }
+            triggerMongoPost={ this.triggerMongoPost } />
         }
       </div>
     );

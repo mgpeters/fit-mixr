@@ -26,6 +26,7 @@ class MainView extends Component {
                 workoutCompleted={ this.props.workoutCompleted }
                 numOfSets={ this.props.numOfSets }
                 setCompleted={ this.props.setCompleted }
+                triggerMongoPost={ this.props.triggerMongoPost }
               />
             </Col>
           </Row>
