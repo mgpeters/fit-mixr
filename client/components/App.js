@@ -26,7 +26,8 @@ class App extends Component {
       mixButtonStatus: true,
       generatedWorkout: [],
       completedWorkout: {},
-      numOfSets: 0
+      numOfSets: 0,
+      currentDate: undefined,
     }
 
     this.selectWorkout = this.selectWorkout.bind(this);
@@ -56,6 +57,7 @@ class App extends Component {
 
   mixItFunction() {
     const promiseArray = [];
+    const currentDate = new Date().toString().split(' ').slice(1, 4).join('-');
 
     this.state.workoutTypeId.forEach((id) => {
       promiseArray.push(fetch(`https://wger.de/api/v2/exercise/?limit=100&status=2&language=2&category=${id}`)
@@ -72,6 +74,7 @@ class App extends Component {
         const randomWorkouts = getRandom(concatResults, numOfSets)
 
         this.setState({
+          currentDate: currentDate,
           generatedWorkout: randomWorkouts,
           modalShow: false,
           numOfSets: numOfSets,
@@ -82,14 +85,14 @@ class App extends Component {
   }
 
   setCompleted(values) {
-    console.log('eventTarget values', values)
+    console.log('currentState', this.state.completedWorkout)
+    const newKey = Object.keys(values);
+    const obj = {};
+    obj[newKey] = values
     this.setState({
-      completedWorkout: {
-        ...this.state.completedWorkout,
-        values,
-      }
-    });
-  }
+      completedWorkout: Object.assign(this.state.completedWorkout, obj)
+    })
+}
 
   // componentDidMount() {
   //   setModalShow(true);

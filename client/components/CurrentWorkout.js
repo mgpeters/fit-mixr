@@ -23,7 +23,10 @@ const CurrentWorkout = (props) => {
     <Formik
       // validationSchema={schema}
       onSubmit={(values, { setSubmitting }) => {
-        props.setCompleted(values);
+        const currDate = new Date();
+        const obj = {};
+        obj[currDate] = values;
+        props.setCompleted(obj);
         setTimeout(() => {
           alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
