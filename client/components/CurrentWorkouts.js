@@ -23,7 +23,6 @@ class CurrentWorkouts extends Component {
         );
       }
     }
-    console.log('workoutGenArray', workoutGenArray)
 
     return (
       <div>

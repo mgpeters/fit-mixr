@@ -154,7 +154,8 @@ class App extends Component {
             workoutCompleted={ this.workoutCompleted }
             numOfSets={ this.state.numOfSets }
             setCompleted={ this.setCompleted }
-            triggerMongoPost={ this.triggerMongoPost } />
+            triggerMongoPost={ this.triggerMongoPost } 
+            priorWorkouts={ this.state.priorWorkouts } />
         }
       </div>
     );

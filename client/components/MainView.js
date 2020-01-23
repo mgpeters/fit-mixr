@@ -18,7 +18,8 @@ class MainView extends Component {
         <Container>
           <Row>
             <Col sm={4}>
-              <PriorWorkouts />
+              <PriorWorkouts
+                priorWorkouts={ this.props.priorWorkouts }/>
             </Col>
             <Col sm={8}>
               <CurrentWorkouts
