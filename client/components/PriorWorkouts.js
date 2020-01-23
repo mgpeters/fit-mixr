@@ -27,7 +27,7 @@ class PriorWorkouts extends Component {
 
     return (
       <div>
-        <h3>Prior Workouts</h3>
+        <h1>History</h1>
         { priorWorkoutGenArray }
       </div>
     );

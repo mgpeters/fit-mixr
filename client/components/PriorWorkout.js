@@ -12,6 +12,17 @@ const PriorWorkout = (props) => {
 
   for (let i = 0; i < props.workoutData.length; i += 1) {
     priorWorkoutData.push(
+      <div key={`cardBody${i}`}>
+        <p>{props.workoutData[i].workoutName}</p>
+        <span>Sets: {props.workoutData[i].sets} </span>
+        <span>Reps: {props.workoutData[i].reps} </span>
+        <span>Weight: {props.workoutData[i].weight}lbs</span>
+      </div>
+      )
+  }
+
+  return (
+    <div className="prior-workout-card">
         <Accordion>
           <Card>
             <Card.Header>
@@ -21,20 +32,11 @@ const PriorWorkout = (props) => {
             </Card.Header>
             <Accordion.Collapse eventKey="0">
               <Card.Body>
-                <p>{props.workoutData[i].workoutName}</p>
-                <p>Sets: {props.workoutData[i].sets}</p>
-                <p>Reps: {props.workoutData[i].reps}</p>
-                <p>Weight: {props.workoutData[i].weight}lbs</p>
+                { priorWorkoutData }
               </Card.Body>
             </Accordion.Collapse>
           </Card>
         </Accordion>
-      )
-  }
-
-  return (
-    <div className="prior-workout-card">
-      { priorWorkoutData }
     </div>
   );
 };
