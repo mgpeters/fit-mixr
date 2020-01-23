@@ -45,8 +45,6 @@ class App extends Component {
     const workoutType = this.state.workoutTypeId;
     workoutType.push(event.target.id);
 
-    console.log(event.target)
-
     const selection = document.getElementById(event.target.id);
 
     selection.style.border = '3px solid grey';

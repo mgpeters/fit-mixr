@@ -26,6 +26,9 @@ const CurrentWorkout = (props) => {
         // const currDate = new Date();
         // const obj = {};
         // obj[currDate] = values;
+        const targetCard = event.target.parentNode.parentNode;
+        targetCard.style.display = 'none';
+
         props.setCompleted(values);
         setTimeout(() => {
           setSubmitting(false);
