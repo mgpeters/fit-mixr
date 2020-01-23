@@ -86,11 +86,12 @@ class App extends Component {
 
   setCompleted(values) {
     console.log('currentState', this.state.completedWorkout)
-    const newKey = Object.keys(values);
+    console.log('objectAssign Values', Object.assign(this.state.completedWorkout, values))
     const obj = {};
-    obj[newKey] = values
+    obj[this.state.currentDate] = [];
+    obj[this.state.currentDate].push(values);
     this.setState({
-      completedWorkout: Object.assign(this.state.completedWorkout, obj)
+      completedWorkout: obj,
     })
 }
 
