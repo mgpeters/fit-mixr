@@ -13,6 +13,12 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(png|jpg)$/,
+        use: {
+          loader: 'url-loader',
+        },
+      },
+      {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         // include: [
@@ -36,6 +42,9 @@ module.exports = {
           'sass-loader'],
       },
     ],
+    // loaders: [
+    //   { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' },
+    // ],
   },
   devServer: {
     compress: true,

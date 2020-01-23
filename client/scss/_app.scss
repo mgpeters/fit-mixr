@@ -1,0 +1,57 @@
+body {
+  background: white;
+}
+
+.modal-body {
+
+  text-align: center;
+
+  .modal-body-text {
+    font-size: 1.3em;
+  }
+
+  .modal-body-selection {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10px;
+    justify-content: center;
+
+    button {
+      margin: 15px;
+      border: none;
+      background: none;
+
+      img {
+
+      }
+
+      p {      }
+    }
+
+    button:hover {
+
+    }
+
+    button:focus {
+    }
+  }
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+#board {
+  width: 390px;
+  height: 390px;
+  // border: 5px solid $lightOrange;
+  // background-color: $darkBlue;
+  margin: 20px auto;
+  padding: 0;
+}
+

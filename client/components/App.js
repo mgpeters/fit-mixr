@@ -1,118 +1,160 @@
 import React, { Component } from 'react';
-import Row from './Row';
-import GameList from './GameList';
-import Leaders from './Leaders';
 
-const gameStore = [];
+import MainView from './MainView';
+import OpenModal from './OpenModal';
 
-const fetchTest = fetch('/api/leaders').then((results) => results.json()).then((result) => console.log(result)).catch((err) => console.log(err.message));
 
-function getInitialState() {
-  return {
-    rows: [
-      ['', '', ''],
-      ['', '', ''],
-      ['', '', ''],
-    ],
-    turn: 'X',
-    winner: undefined,
-    gameList: gameStore,
-  };
+const getRandom = (arr, n) => {
+    var result = new Array(n),
+        len = arr.length,
+        taken = new Array(len);
+    if (n > len)
+        throw new RangeError("getRandom: more elements taken than available");
+    while (n--) {
+        var x = Math.floor(Math.random() * len);
+        result[n] = arr[x in taken ? taken[x] : x];
+        taken[x] = --len in taken ? taken[len] : len;
+    }
+    return result;
 }
-
-function checkWin(rows) {
-  const combos = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-  ];
-
-  const flattened = rows.reduce((acc, row) => acc.concat(row), []);
-
-  return combos.find((combo) => (
-    flattened[combo[0]] !== ''
-    && flattened[combo[0]] === flattened[combo[1]]
-    && flattened[combo[1]] === flattened[combo[2]]
-  ));
-}
-
 class App extends Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
-    this.state = getInitialState();
+    this.state = {
+      modalShow: true,
+      workoutTypeId: [],
+      mixButtonStatus: true,
+      generatedWorkout: [],
+      completedWorkout: {},
+      numOfSets: 0,
+      currentDate: undefined,
+      priorWorkouts: {},
+    }
+
+    this.selectWorkout = this.selectWorkout.bind(this);
+    this.mixItFunction = this.mixItFunction.bind(this);
+    this.setCompleted = this.setCompleted.bind(this);
+    this.triggerMongoPost = this.triggerMongoPost.bind(this);
   }
 
-  handleClick(row, square) {
-    let { turn, winner } = this.state;
-    const { rows } = this.state;
-    const squareInQuestion = rows[row][square];
+  setModalShow(param) {
+    this.setState({ modalShow: param });
+  }
 
-    if (this.state.winner) return;
-    if (squareInQuestion) return;
+  selectWorkout(event) {
+    const workoutType = this.state.workoutTypeId;
+    workoutType.push(event.target.id);
 
-    rows[row][square] = turn;
-    turn = turn === 'X' ? 'O' : 'X';
-    winner = checkWin(rows);
+    const selection = document.getElementById(event.target.id);
+
+    selection.style.border = '3px solid grey';
 
     this.setState({
-      rows,
-      turn,
-      winner,
+      workoutTypeId: workoutType,
+      mixButtonStatus: false,
     });
   }
 
-  render() {
-    const {
-      rows, turn, winner, gameList,
-    } = this.state;
-    const { handleClick } = this;
+  mixItFunction() {
+    const promiseArray = [];
+    const currentDate = new Date().toString().split(' ').slice(1, 4).join('-');
 
-    const rowElements = rows.map((letters, i) => (
-      <Row key={i} row={i} letters={letters} handleClick={handleClick} />
-    ));
+    this.retrieveWorkouts();
 
-    let infoDiv;
-    if (winner) {
-      const winTurn = turn === 'X' ? 'O' : 'X';
-      infoDiv = (
-        <div>
-          <div>
-Player
-            {' '}
-            {winTurn}
-            {' '}
-wins with squares
-            {' '}
-            {winner.join(', ')}
-!
-          </div>
-        </div>
-      );
+    this.state.workoutTypeId.forEach((id) => {
+      promiseArray.push(fetch(`https://wger.de/api/v2/exercise/?limit=100&status=2&language=2&category=${id}`)
+        .then((results) => results.json())
+          .then((result) => result.results.slice(0, 5))
+            .catch((err) => console.log(err.message)))
+    });
+
+    Promise.all(promiseArray)
+      .then((result) => {
+        const concatResults = result.reduce((acc, val) => [...acc, ...val]);
+        const numOfSets = Math.floor(concatResults.length / 2);
+
+        const randomWorkouts = getRandom(concatResults, numOfSets)
+
+        this.setState({
+          currentDate: currentDate,
+          generatedWorkout: randomWorkouts,
+          modalShow: false,
+          numOfSets: numOfSets,
+        })
+      }).catch((error) => {
+        console.log(error)
+      })
+  }
+
+  setCompleted(values) {
+    console.log('currentState', this.state.completedWorkout)
+    const obj = {};
+    obj[this.state.currentDate] = [];
+
+    if (this.state.completedWorkout[this.state.currentDate]){
+      obj[this.state.currentDate].push(...this.state.completedWorkout[this.state.currentDate]);//.push(this.state.completedWorkout[this.state.currentDate])
+      obj[this.state.currentDate].push(values);
     } else {
-      infoDiv = (
-        <div>
-Turn:
-          {' '}
-          {turn}
-        </div>
-      );
+      obj[this.state.currentDate].push(values);
     }
+
+    this.setState({
+      completedWorkout: obj,
+    })
+}
+
+  postWorkout(currentState) {
+    fetch('/api/addWorkout', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "Application/JSON"
+        },
+        body: JSON.stringify(currentState),
+      }).then(res => res.json())
+      .then((response) => {
+        console.log('postWorkoutResponse COMPLETE', response);
+      }).catch(err => console.log('Characters.componentDidMount: get characters: ERROR: ', err));
+  }
+
+  retrieveWorkouts(){
+    fetch('/api/getWorkouts')
+    .then(res => res.json())
+      .then((response) => {
+        console.log('getWorkoutsResponse COMPLETE', response);
+        this.setState({
+          priorWorkouts: response,
+        });
+      }).catch(err => console.log('Characters.componentDidMount: get characters: ERROR: ', err));
+  }
+
+  triggerMongoPost(){
+    this.postWorkout(this.state.completedWorkout);
+  }
+
+  // componentDidMount() {
+  //   setModalShow(true);
+
+  render() {
 
     return (
       <div>
-        {infoDiv}
-        <div id="board">
-          {rowElements}
-        </div>
-        <button id="reset" onClick={() => this.setState(getInitialState())}>Reset board</button>
-        <GameList gameList={gameList} />
-        <Leaders />
+        <OpenModal
+          show={ this.state.modalShow }
+          onHide={() => this.setModalShow(false)}
+          mixButtonStatus={ this.state.mixButtonStatus }
+          selectWorkout={ this.selectWorkout }
+          mixItFunction={ this.mixItFunction }
+        />
+        {
+          this.state.modalShow ? '' :
+          <MainView
+            generatedWorkout={ this.state.generatedWorkout }
+            workoutCompleted={ this.workoutCompleted }
+            numOfSets={ this.state.numOfSets }
+            setCompleted={ this.setCompleted }
+            triggerMongoPost={ this.triggerMongoPost } 
+            priorWorkouts={ this.state.priorWorkouts } />
+        }
       </div>
     );
   }
