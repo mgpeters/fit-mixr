@@ -86,10 +86,16 @@ class App extends Component {
 
   setCompleted(values) {
     console.log('currentState', this.state.completedWorkout)
-    console.log('objectAssign Values', Object.assign(this.state.completedWorkout, values))
     const obj = {};
     obj[this.state.currentDate] = [];
-    obj[this.state.currentDate].push(values);
+
+    if (this.state.completedWorkout[this.state.currentDate]){
+      obj[this.state.currentDate].push(...this.state.completedWorkout[this.state.currentDate]);//.push(this.state.completedWorkout[this.state.currentDate])
+      obj[this.state.currentDate].push(values);
+    } else {
+      obj[this.state.currentDate].push(values);
+    }
+
     this.setState({
       completedWorkout: obj,
     })
