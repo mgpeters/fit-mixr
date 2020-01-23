@@ -14,9 +14,11 @@ const PriorWorkout = (props) => {
     priorWorkoutData.push(
       <div key={`cardBody${i}`}>
         <p>{props.workoutData[i].workoutName}</p>
-        <span>Sets: {props.workoutData[i].sets} </span>
-        <span>Reps: {props.workoutData[i].reps} </span>
-        <span>Weight: {props.workoutData[i].weight}lbs</span>
+        <p>
+          <span>Sets: {props.workoutData[i].sets} </span>
+          <span>Reps: {props.workoutData[i].reps} </span>
+          <span>Weight: {props.workoutData[i].weight}lbs</span>
+        </p>
       </div>
       )
   }
