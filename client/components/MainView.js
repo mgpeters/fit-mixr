@@ -23,6 +23,8 @@ class MainView extends Component {
             <Col sm={8}>
               <CurrentWorkouts
                 generatedWorkout={ this.props.generatedWorkout }
+                workoutCompleted={ this.props.workoutCompleted }
+                numOfSets={ this.props.numOfSets }
               />
             </Col>
           </Row>

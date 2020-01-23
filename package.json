@@ -21,12 +21,14 @@
     "bootstrap": "^4.4.1",
     "browserify": "^10.2.4",
     "express": "^4.12.3",
+    "formik": "^2.1.2",
     "mongoose": "^5.8.9",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-bootstrap": "^1.0.0-beta.16",
     "react-dom": "^16.3.1",
-    "webpack": "^4.29.3"
+    "webpack": "^4.29.3",
+    "yup": "^0.28.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",

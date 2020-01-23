@@ -10,9 +10,20 @@ class CurrentWorkouts extends Component {
   render() {
     const workoutGenArray = [];
 
-    for (let i = 0; i < 6; i += 1) {
-      workoutGenArray.push(<CurrentWorkout workoutProperties={ this.props.generatedWorkout[i] } key={`workout ${i}`} />);
+    console.log(this.props.generatedWorkout)
+
+    for (let i = 0; i < this.props.numOfSets; i += 1) {
+      console.log('name', this.props.generatedWorkout[i].name)
+      if (this.props.generatedWorkout[i].name !== undefined) {
+        workoutGenArray.push(
+          <CurrentWorkout
+            workoutProperties={ this.props.generatedWorkout[i] }
+            workoutCompleted={ this.props.workoutCompleted }
+            key={`workout ${i}`} />
+        );
+      }
     }
+    console.log('workoutGenArray', workoutGenArray)
 
     return (
       <div>

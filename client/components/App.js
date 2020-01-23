@@ -26,6 +26,7 @@ class App extends Component {
       mixButtonStatus: true,
       generatedWorkout: [],
       completedWorkout: null,
+      numOfSets: 0
     }
 
     this.selectWorkout = this.selectWorkout.bind(this);
@@ -48,7 +49,7 @@ class App extends Component {
 
     this.setState({
       workoutTypeId: workoutType,
-      mixButtonStatus: false
+      mixButtonStatus: false,
     });
   }
 
@@ -65,16 +66,22 @@ class App extends Component {
     Promise.all(promiseArray)
       .then((result) => {
         const concatResults = result.reduce((acc, val) => [...acc, ...val]);
+        const numOfSets = Math.floor(concatResults.length / 2);
 
-        const randomWorkouts = getRandom(concatResults, Math.floor(concatResults.length / 2))
+        const randomWorkouts = getRandom(concatResults, numOfSets)
 
         this.setState({
           generatedWorkout: randomWorkouts,
           modalShow: false,
+          numOfSets: numOfSets,
         })
       }).catch((error) => {
         console.log(error)
       })
+  }
+
+  workoutCompleted(event) {
+    console.log('eventTarget', event.target)
   }
 
   // componentDidMount() {
@@ -94,7 +101,9 @@ class App extends Component {
         {
           this.state.modalShow ? '' :
           <MainView
-            generatedWorkout={ this.state.generatedWorkout } />
+            generatedWorkout={ this.state.generatedWorkout }
+            workoutCompleted={ this.workoutCompleted }
+            numOfSets={ this.state.numOfSets } />
         }
       </div>
     );
