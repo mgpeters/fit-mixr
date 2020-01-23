@@ -17,10 +17,10 @@ class MainView extends Component {
       <section className="mainview-wrapper">
         <Container>
           <Row>
-            <Col>
+            <Col sm={4}>
               <PriorWorkouts />
             </Col>
-            <Col>
+            <Col sm={8}>
               <CurrentWorkouts
                 generatedWorkout={ this.props.generatedWorkout }
               />
