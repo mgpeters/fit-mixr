@@ -26,7 +26,6 @@ class CurrentWorkouts extends Component {
 
     return (
       <div>
-        <h1>Todays Workout</h1>
         { workoutGenArray }
         <Button
           block
