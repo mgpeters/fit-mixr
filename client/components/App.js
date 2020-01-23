@@ -28,6 +28,7 @@ class App extends Component {
       completedWorkout: {},
       numOfSets: 0,
       currentDate: undefined,
+      priorWorkouts: {},
     }
 
     this.selectWorkout = this.selectWorkout.bind(this);
@@ -59,6 +60,8 @@ class App extends Component {
   mixItFunction() {
     const promiseArray = [];
     const currentDate = new Date().toString().split(' ').slice(1, 4).join('-');
+
+    this.retrieveWorkouts();
 
     this.state.workoutTypeId.forEach((id) => {
       promiseArray.push(fetch(`https://wger.de/api/v2/exercise/?limit=100&status=2&language=2&category=${id}`)
@@ -112,6 +115,17 @@ class App extends Component {
       }).then(res => res.json())
       .then((response) => {
         console.log('postWorkoutResponse COMPLETE', response);
+      }).catch(err => console.log('Characters.componentDidMount: get characters: ERROR: ', err));
+  }
+
+  retrieveWorkouts(){
+    fetch('/api/getWorkouts')
+    .then(res => res.json())
+      .then((response) => {
+        console.log('getWorkoutsResponse COMPLETE', response);
+        this.setState({
+          priorWorkouts: response,
+        });
       }).catch(err => console.log('Characters.componentDidMount: get characters: ERROR: ', err));
   }
 
