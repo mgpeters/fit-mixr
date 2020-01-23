@@ -24,8 +24,10 @@ const CurrentWorkout = (props) => {
       // validationSchema={schema}
       onSubmit={ console.log }
       initialValues={{
-        firstName: 'Mark',
-        lastName: 'Otto',
+        workoutName: props.workoutProperties.name,
+        sets: 4,
+        reps: 10,
+        weight: 25,
       }}
     >
       {({
@@ -60,7 +62,12 @@ const CurrentWorkout = (props) => {
                   </Form.Group>
                   <Form.Group>
                     <Form.Label>Reps</Form.Label>
-                    <Form.Control as="select">
+                    <Form.Control
+                      as="select"
+                      type="text"
+                      name="reps"
+                      value={ values.reps }
+                      onChange={ handleChange } >
                       <option>25</option>
                       <option>20</option>
                       <option>15</option>
@@ -69,8 +76,14 @@ const CurrentWorkout = (props) => {
                     </Form.Control>
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>Weight</Form.Label>
-                    <Form.Control type="text" placeholder="in lbs" defaultValue={100}/>
+                    <Form.Label>Weight in lbs</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="in lbs"
+                      name="weight"
+                      value={ values.weight}
+                      onChange={ handleChange } >
+                    </Form.Control>
                   </Form.Group>
                 </Form.Row>
                 <Button
