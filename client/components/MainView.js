@@ -25,6 +25,7 @@ class MainView extends Component {
                 generatedWorkout={ this.props.generatedWorkout }
                 workoutCompleted={ this.props.workoutCompleted }
                 numOfSets={ this.props.numOfSets }
+                setCompleted={ this.props.setCompleted }
               />
             </Col>
           </Row>

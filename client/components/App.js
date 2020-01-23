@@ -25,12 +25,13 @@ class App extends Component {
       workoutTypeId: [],
       mixButtonStatus: true,
       generatedWorkout: [],
-      completedWorkout: null,
+      completedWorkout: {},
       numOfSets: 0
     }
 
     this.selectWorkout = this.selectWorkout.bind(this);
     this.mixItFunction = this.mixItFunction.bind(this);
+    this.setCompleted = this.setCompleted.bind(this);
   }
 
   setModalShow(param) {
@@ -80,8 +81,14 @@ class App extends Component {
       })
   }
 
-  workoutCompleted(event) {
-    console.log('eventTarget', event.target)
+  setCompleted(values) {
+    console.log('eventTarget values', values)
+    this.setState({
+      completedWorkout: {
+        ...this.state.completedWorkout,
+        values,
+      }
+    });
   }
 
   // componentDidMount() {
@@ -103,7 +110,8 @@ class App extends Component {
           <MainView
             generatedWorkout={ this.state.generatedWorkout }
             workoutCompleted={ this.workoutCompleted }
-            numOfSets={ this.state.numOfSets } />
+            numOfSets={ this.state.numOfSets } 
+            setCompleted={ this.setCompleted } />
         }
       </div>
     );

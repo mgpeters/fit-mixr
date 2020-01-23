@@ -19,7 +19,8 @@ class CurrentWorkouts extends Component {
           <CurrentWorkout
             workoutProperties={ this.props.generatedWorkout[i] }
             workoutCompleted={ this.props.workoutCompleted }
-            key={`workout ${i}`} />
+            key={`workout ${i}`}
+            setCompleted={ this.props.setCompleted } />
         );
       }
     }
