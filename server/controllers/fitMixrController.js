@@ -1,5 +1,7 @@
 const models = require('../models/fitMixrModels');
 
+
+
 const fitMixrController = {};
 
 // fitMixrController.addUser = (req, res, next) => {
@@ -36,7 +38,6 @@ fitMixrController.addWorkout = (req, res, next) => {
 };
 
 fitMixrController.getWorkouts = (req, res, next) => {
-  
   models.Workouts.find()
     .then((response) => {
       console.log(response);
