@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import MainView from './MainView';
 import OpenModal from './OpenModal';
 
-
+// Gets a random sub-set of the fetched workout data
 const getRandom = (arr, n) => {
     var result = new Array(n),
         len = arr.length,
@@ -37,10 +37,12 @@ class App extends Component {
     this.triggerMongoPost = this.triggerMongoPost.bind(this);
   }
 
+  // Toggles Modal window
   setModalShow(param) {
     this.setState({ modalShow: param });
   }
 
+  // Workout selection 
   selectWorkout(event) {
     const workoutType = this.state.workoutTypeId;
     workoutType.push(event.target.id);
@@ -55,6 +57,7 @@ class App extends Component {
     });
   }
 
+  // Method to grab all workout data and randomize
   mixItFunction() {
     const promiseArray = [];
     const currentDate = new Date().toString().split(' ').slice(1, 4).join('-');
@@ -68,6 +71,7 @@ class App extends Component {
             .catch((err) => console.log(err.message)))
     });
 
+    // grabs all workout data and from online DB and formats it to how I want it to be set to State
     Promise.all(promiseArray)
       .then((result) => {
         const concatResults = result.reduce((acc, val) => [...acc, ...val]);
@@ -86,6 +90,7 @@ class App extends Component {
       })
   }
 
+  // Toggles a completion button of a current workout
   setCompleted(values) {
     console.log('currentState', this.state.completedWorkout)
     const obj = {};
@@ -103,6 +108,7 @@ class App extends Component {
     })
 }
 
+  // Posts this sessions workout data to our DB
   postWorkout(currentState) {
     fetch('/api/addWorkout', {
         method: 'POST',
